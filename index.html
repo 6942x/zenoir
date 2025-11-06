@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional portfolio website showcasing UI/GUI design and creation skills">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Zenoir - UI/UX Maker Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #D800FF, #A000CC);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1rem;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #D800FF;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after,
+        nav a.active::after {
+            width: 100%;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #D800FF;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        .home {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-img {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .home-img::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 100%;
+            height: 200%;
+            background: linear-gradient(135deg, #D800FF 0%, #A000CC 100%);
+            clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 0% 100%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        .profile-image {
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #D800FF;
+            box-shadow: 0 0 30px rgba(216, 0, 255, 0.5);
+            animation: floatImage 6s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes floatImage {
+            0%, 100% { 
+                transform: translateY(-50%) translateX(0);
+            }
+            50% { 
+                transform: translateY(-55%) translateX(-10px);
+            }
+        }
+
+        .home-content {
+            max-width: 600px;
+            z-index: 10;
+            padding-top: 80px;
+        }
+
+        .home-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .home-content h1 span {
+            color: #D800FF;
+        }
+
+        .home-content h3 {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            min-height: 60px;
+        }
+
+        .typing-text {
+            color: #D800FF;
+            border-right: 3px solid #D800FF;
+            padding-right: 5px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { border-color: transparent; }
+            50% { border-color: #D800FF; }
+        }
+
+        .home-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #aaa;
+            margin-bottom: 2rem;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 100px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        h2 span {
+            color: #D800FF;
+        }
+
+        .services-container,
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-box,
+        .skill-box {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .service-box:hover,
+        .skill-box:hover {
+            background: rgba(216, 0, 255, 0.1);
+            border-color: #D800FF;
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(216, 0, 255, 0.3);
+        }
+
+        .service-box h3,
+        .skill-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #D800FF;
+        }
+
+        .service-box p,
+        .skill-box p {
+            color: #aaa;
+            line-height: 1.8;
+        }
+
+        .skill-bar {
+            background: rgba(255, 255, 255, 0.1);
+            height: 10px;
+            border-radius: 5px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #D800FF, #A000CC);
+            border-radius: 5px;
+            animation: loadSkill 2s ease-out;
+        }
+
+        @keyframes loadSkill {
+            from { width: 0; }
+        }
+
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-box {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            overflow: hidden;
+        }
+
+        .project-box:hover {
+            background: rgba(216, 0, 255, 0.1);
+            border-color: #D800FF;
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(216, 0, 255, 0.3);
+        }
+
+        .project-media {
+            width: 100%;
+            height: 250px;
+            background: #000;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .project-media iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .project-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            overflow: hidden;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+            filter: brightness(0.8);
+        }
+
+        .video-thumbnail:hover img {
+            transform: scale(1.05);
+            filter: brightness(1);
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 0, 0, 0.9);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .play-button::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 25px solid white;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            margin-left: 5px;
+        }
+
+        .video-thumbnail:hover .play-button {
+            background: rgba(255, 0, 0, 1);
+            transform: translate(-50%, -50%) scale(1.15);
+        }
+
+        .video-link {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+        }
+
+        .project-media .placeholder {
+            color: #666;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .placeholder-icon {
+            font-size: 3rem;
+            opacity: 0.5;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #D800FF;
+        }
+
+        .project-box p {
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: rgba(216, 0, 255, 0.2);
+            color: #D800FF;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(216, 0, 255, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            color: #aaa;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            nav ul {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: rgba(10, 10, 10, 0.98);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            nav ul.active {
+                left: 0;
+            }
+
+            .home-img {
+                width: 100%;
+                opacity: 0.3;
+            }
+
+            .profile-image {
+                width: 250px;
+                height: 250px;
+                right: 5%;
+            }
+
+            .home-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .home-content h3 {
+                font-size: 1.5rem;
+            }
+
+            section {
+                padding: 80px 5%;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .projects-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Zenoir's Portfolio</div>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="navMenu">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Past Work</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="home" id="home">
+        <div class="home-img"></div>
+        <div class="profile-image">
+            <img src="https://drive.google.com/thumbnail?id=14E1UF3MXcB7trkmBsA3kJ_yHEf3nZu73&sz=w1000" alt="Zenoir - UI/UX Maker">
+        </div>
+        <div class="home-content">
+            <h1>Hi, I'm <span>Zenoir</span></h1>
+            <h3>I'm a <span class="typing-text"></span></h3>
+            <p>Passionate UI/UX Maker and game developer with experience creating clean, intuitive, and immersive user interfaces for games. I focus on crafting visually appealing designs that enhance player experience and interaction, combining creativity with functionality to deliver seamless user journeys. My approach involves understanding player behavior, iterating on feedback, and designing interfaces that feel both engaging and natural. Driven by a love for game design and attention to detail, I'm dedicated to building experiences that are not only beautiful but truly enjoyable to play.</p>
+        </div>
+    </section>
+
+    <section id="services">
+        <h2>My <span>Services</span></h2>
+        <div class="services-container">
+            <div class="service-box">
+                <h3>🎨 UI/GUI Design</h3>
+                <p>Creating stunning user interfaces with modern design principles, intuitive layouts, and engaging visual elements. Specializing in game UIs, menus, HUDs, and interactive components.</p>
+            </div>
+            <div class="service-box">
+                <h3>✨ Interface Animation</h3>
+                <p>Developing smooth, responsive animations and transitions that bring interfaces to life. Expert in creating micro-interactions and motion design that enhance user experience.</p>
+            </div>
+            <div class="service-box">
+                <h3>🎮 Game Interface Systems</h3>
+                <p>Designing and implementing complete UI systems for games, including inventory screens, quest logs, dialogue boxes, and dynamic HUD elements that adapt to gameplay.</p>
+            </div>
+            <div class="service-box">
+                <h3>🖼️ Visual Design</h3>
+                <p>Creating cohesive visual identities for games and applications with custom icons, buttons, frames, and themed interface elements that match your project's aesthetic.</p>
+            </div>
+            <div class="service-box">
+                <h3>📱 Responsive Layouts</h3>
+                <p>Building interfaces that work seamlessly across different screen sizes and resolutions, ensuring consistent user experience on desktop, mobile, and tablet devices.</p>
+            </div>
+            <div class="service-box">
+                <h3>🔄 UI Prototyping</h3>
+                <p>Rapid prototyping of interface concepts and interactive mockups to visualize and test design ideas before full implementation, saving time and ensuring quality.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>My <span>Skills</span></h2>
+        <div class="skills-container">
+            <div class="skill-box">
+                <h3>UI/GUI Design</h3>
+                <p>Expert in creating visually appealing and functional user interfaces. Strong understanding of design principles, color theory, typography, and layout composition for optimal user experience.</p>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 95%"></div>
+                </div>
+            </div>
+            <div class="skill-box">
+                <h3>Animation & Transitions</h3>
+                <p>Creating smooth, engaging animations and transitions that enhance user experience. Expertise in motion design, easing functions, and interactive feedback systems.</p>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 90%"></div>
+                </div>
+            </div>
+            <div class="skill-box">
+                <h3>Interface Development</h3>
+                <p>Building functional interfaces with clean code and efficient structures. Experience with various UI frameworks and tools for creating responsive, interactive designs.</p>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 85%"></div>
+                </div>
+            </div>
+            <div class="skill-box">
+                <h3>User Experience Design</h3>
+                <p>Understanding user psychology and behavior to create intuitive interfaces. Focus on accessibility, usability testing, and creating seamless user journeys.</p>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 92%"></div>
+                </div>
+            </div>
+            <div class="skill-box">
+                <h3>Visual Design Tools</h3>
+                <p>Proficient in industry-standard design tools for creating mockups, prototypes, and production-ready assets. Strong skills in vector design and image editing.</p>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 87%"></div>
+                </div>
+            </div>
+            <div class="skill-box">
+                <h3>Responsive Design</h3>
+                <p>Creating interfaces that adapt beautifully to different screen sizes and orientations. Expertise in mobile-first design and cross-platform compatibility.</p>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 88%"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>My <span>Past Work</span></h2>
+        <div class="projects-container">
+            <div class="project-box">
+                <div class="project-media">
+                    <img src="https://drive.google.com/thumbnail?id=14E1UF3MXcB7trkmBsA3kJ_yHEf3nZu73&sz=w1000" alt="Coming Soon">
+                </div>
+                <div class="project-content">
+                    <h3>Coming Soon</h3>
+                    <p></p>
+                    <div class="project-tags">
+                        <span class="tag">Coming Soon</span>
+                        <span class="tag">Coming Soon</span>
+                        <span class="tag">Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-box">
+                <div class="project-media">
+                    <img src="https://drive.google.com/thumbnail?id=14E1UF3MXcB7trkmBsA3kJ_yHEf3nZu73&sz=w1000" alt="Coming Soon">
+                </div>
+                <div class="project-content">
+                    <h3>Coming Soon</h3>
+                    <p></p>
+                    <div class="project-tags">
+                        <span class="tag">Coming Soon</span>
+                        <span class="tag">Coming Soon</span>
+                        <span class="tag">Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-box">
+                <div class="project-media">
+                    <img src="https://drive.google.com/thumbnail?id=1aAovmHKEmURFQ0MM2KVjHSi0xqQIzowO&sz=w1000" alt="Coming Soon">
+                </div>
+                <div class="project-content">
+                    <h3>Coming Soon</h3>
+                    <p></p>
+                    <div class="project-tags">
+                        <span class="tag">Coming Soon</span>
+                        <span class="tag">Coming Soon</span>
+                        <span class="tag">Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-box">
+                <div class="project-media">
+                    <a href="https://www.youtube.com/watch?v=ppd5MbUBQco" target="_blank" class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/ppd5MbUBQco/maxresdefault.jpg" alt="Video thumbnail">
+                        <div class="play-button"></div>
+                    </a>
+                </div>
+                <div class="project-content">
+                    <h3>Coming Soon</h3>
+                    <p></p>
+                    <div class="project-tags">
+                        <span class="tag">Coming Soon</span>
+                        <span class="tag">Coming Soon</span>
+                        <span class="tag">Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-box">
+                <div class="project-media">
+                    <a href="https://www.youtube.com/watch?v=5_NPEq6pl-s" target="_blank" class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/5_NPEq6pl-s/maxresdefault.jpg" alt="Video thumbnail">
+                        <div class="play-button"></div>
+                    </a>
+                </div>
+                <div class="project-content">
+                    <h3>Coming Soon</h3>
+                    <p></p>
+                    <div class="project-tags">
+                        <span class="tag">Coming Soon</span>
+                        <span class="tag">Coming Soon</span>
+                        <span class="tag">Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-box">
+                <div class="project-media">
+                    <a href="https://www.youtube.com/watch?v=5_NPEq6pl-s" target="_blank" class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/5_NPEq6pl-s/maxresdefault.jpg" alt="Video thumbnail">
+                        <div class="play-button"></div>
+                    </a>
+                </div>
+                <div class="project-content">
+                    <h3>Coming Soon</h3>
+                    <p></p>
+                    <div class="project-tags">
+                        <span class="tag">Coming Soon</span>
+                        <span class="tag">Coming Soon</span>
+                        <span class="tag">Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Zenoir - UI/UX Maker | Specializing in Game Interface Design & Interactive Experiences</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Based in GMT-3 Timezone | Available for freelance projects</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            menu.classList.toggle('active');
+        }
+
+        document.querySelectorAll('#navMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navMenu').classList.remove('active');
+            });
+        });
+
+        const typingText = document.querySelector('.typing-text');
+        const words = ['UI/UX Maker', 'Interface Designer', 'Game Developer', 'UX Specialist', 'Visual Creator'];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentWord = words[wordIndex];
+            
+            if (isDeleting) {
+                typingText.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingText.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                isDeleting = true;
+                setTimeout(type, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                setTimeout(type, 500);
+            } else {
+                setTimeout(type, isDeleting ? 50 : 100);
+            }
+        }
+
+        type();
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const skillBars = entry.target.querySelectorAll('.skill-progress');
+                    skillBars.forEach(bar => {
+                        bar.style.animation = 'none';
+                        setTimeout(() => {
+                            bar.style.animation = 'loadSkill 2s ease-out';
+                        }, 100);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        const skillsSection = document.querySelector('#skills');
+        if (skillsSection) {
+            observer.observe(skillsSection);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('error', function() {
+                    this.style.background = 'linear-gradient(135deg, #D800FF 0%, #A000CC 100%)';
+                    this.style.color = '#fff';
+                });
+            });
+        });
+
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.service-box, .skill-box, .project-box').forEach(box => {
+            box.style.opacity = '0';
+            box.style.transform = 'translateY(30px)';
+            box.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            fadeObserver.observe(box);
+        });
+    </script>
+</body>
+</html>
