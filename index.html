@@ -147,12 +147,19 @@
             box-shadow: 0 0 30px rgba(216, 0, 255, 0.5);
             animation: floatImage 6s ease-in-out infinite;
             z-index: 10;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .profile-image:hover {
+            transform: translateY(-50%) scale(1.05);
         }
 
         .profile-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            cursor: pointer;
         }
 
         @keyframes floatImage {
@@ -321,6 +328,12 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .project-media img:hover {
+            transform: scale(1.05);
         }
 
         .video-thumbnail {
@@ -446,6 +459,109 @@
             color: #aaa;
         }
 
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            opacity: 0;
+            animation: fadeIn 0.3s ease-out forwards;
+            padding: 80px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleOut {
+            from {
+                transform: scale(1);
+                opacity: 1;
+            }
+            to {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 100%;
+            max-height: 100%;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .modal-content.closing {
+            animation: scaleOut 0.3s ease-out forwards;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 100%;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            box-shadow: 0 0 80px rgba(216, 0, 255, 0.6), 0 0 120px rgba(216, 0, 255, 0.3);
+            border: 3px solid #D800FF;
+            object-fit: contain;
+            background: transparent;
+        }
+
+        .close-button {
+            position: absolute;
+            top: -70px;
+            right: -70px;
+            width: 60px;
+            height: 60px;
+            background: rgba(216, 0, 255, 0.3);
+            border: 2px solid #D800FF;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #D800FF;
+            transition: all 0.3s;
+            z-index: 2001;
+        }
+
+        .close-button:hover {
+            background: rgba(216, 0, 255, 0.6);
+            transform: rotate(90deg) scale(1.1);
+        }
+
         @media (max-width: 768px) {
             .menu-toggle {
                 display: flex;
@@ -498,6 +614,25 @@
             .projects-container {
                 grid-template-columns: 1fr;
             }
+
+            .close-button {
+                top: 15px;
+                right: 15px;
+                width: 50px;
+                height: 50px;
+                font-size: 2rem;
+            }
+
+            .modal-image {
+                border-radius: 15px;
+                max-width: 95vw;
+                max-height: 85vh;
+            }
+
+            .modal-content {
+                max-width: 95vw;
+                max-height: 85vh;
+            }
         }
     </style>
 </head>
@@ -521,7 +656,7 @@
 
     <section class="home" id="home">
         <div class="home-img"></div>
-        <div class="profile-image">
+        <div class="profile-image" onclick="openModal(this.querySelector('img'))">
             <img src="https://drive.google.com/thumbnail?id=14E1UF3MXcB7trkmBsA3kJ_yHEf3nZu73&sz=w1000" alt="Zenoir - UI/UX Maker">
         </div>
         <div class="home-content">
@@ -614,7 +749,7 @@
         <div class="projects-container">
             <div class="project-box">
                 <div class="project-media">
-                    <img src="https://drive.google.com/thumbnail?id=14E1UF3MXcB7trkmBsA3kJ_yHEf3nZu73&sz=w1000" alt="Coming Soon">
+                    <img src="https://drive.google.com/thumbnail?id=1YwvFCBMkHWGeEya5yKg5YhzHngrkhXBF&sz=w1000" alt="Coming Soon" onclick="openModal(this)">
                 </div>
                 <div class="project-content">
                     <h3>Coming Soon</h3>
@@ -629,7 +764,7 @@
             
             <div class="project-box">
                 <div class="project-media">
-                    <img src="https://drive.google.com/thumbnail?id=14E1UF3MXcB7trkmBsA3kJ_yHEf3nZu73&sz=w1000" alt="Coming Soon">
+                    <img src="https://drive.google.com/thumbnail?id=1YwvFCBMkHWGeEya5yKg5YhzHngrkhXBF&sz=w1000" alt="Coming Soon" onclick="openModal(this)">
                 </div>
                 <div class="project-content">
                     <h3>Coming Soon</h3>
@@ -644,7 +779,7 @@
             
             <div class="project-box">
                 <div class="project-media">
-                    <img src="https://drive.google.com/thumbnail?id=14E1UF3MXcB7trkmBsA3kJ_yHEf3nZu73&sz=w1000" alt="Coming Soon">
+                    <img src="https://drive.google.com/thumbnail?id=1YwvFCBMkHWGeEya5yKg5YhzHngrkhXBF&sz=w1000" alt="Coming Soon" onclick="openModal(this)">
                 </div>
                 <div class="project-content">
                     <h3>Coming Soon</h3>
@@ -713,12 +848,50 @@
         </div>
     </section>
 
+    <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+        <div class="modal-content" id="modalContent">
+            <button class="close-button" onclick="closeModal()">✕</button>
+            <img id="modalImage" class="modal-image" src="" alt="">
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2025 Zenoir - UI/UX Maker | Specializing in Game Interface Design & Interactive Experiences</p>
         <p style="margin-top: 0.5rem; font-size: 0.9rem;">Based in GMT-3 Timezone | Available for freelance projects</p>
     </footer>
 
     <script>
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalContent = document.getElementById('modalContent');
+        const modalImage = document.getElementById('modalImage');
+
+        function openModal(imgElement) {
+            modalImage.src = imgElement.src;
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modalContent.classList.add('closing');
+            setTimeout(() => {
+                modalOverlay.classList.remove('active');
+                modalContent.classList.remove('closing');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        function handleOverlayClick(event) {
+            if (event.target === modalOverlay) {
+                closeModal();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
         function toggleMenu() {
             const menu = document.getElementById('navMenu');
             menu.classList.toggle('active');
@@ -822,8 +995,7 @@
             const images = document.querySelectorAll('img');
             images.forEach(img => {
                 img.addEventListener('error', function() {
-                    this.style.background = 'linear-gradient(135deg, #D800FF 0%, #A000CC 100%)';
-                    this.style.color = '#fff';
+                    this.style.background = 'transparent';
                 });
             });
         });
