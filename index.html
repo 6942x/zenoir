@@ -795,7 +795,7 @@
             transition: transform 0.3s ease;
             border: 3px solid #D800FF;
             cursor: default;
-            transform-origin: 0 0;
+            transform-origin: center center;
             touch-action: none;
             user-select: none;
             -webkit-user-select: none;
@@ -1444,56 +1444,44 @@
         }
 
         function zoomIn() {
-            const rect = modalImageContainer.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            zoomToPoint(currentScale + scaleStep, centerX, centerY);
+            const newScale = Math.min(maxScale, currentScale + scaleStep);
+            applyZoom(newScale);
         }
 
         function zoomOut() {
-            const rect = modalImageContainer.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            zoomToPoint(currentScale - scaleStep, centerX, centerY);
+            const newScale = Math.max(minScale, currentScale - scaleStep);
+            applyZoom(newScale);
         }
 
         function resetZoom() {
-            currentScale = 1;
-            modalImage.style.transform = `scale(${currentScale})`;
-            modalImage.classList.add('zoomable');
-            modalImage.classList.remove('zoomed');
-            modalImageContainer.style.cursor = 'zoom-in';
+            applyZoom(1);
             modalImageContainer.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         }
 
-        function zoomToPoint(scale, clientX, clientY) {
-            const rect = modalImage.getBoundingClientRect();
-            const containerRect = modalImageContainer.getBoundingClientRect();
-            
-            const imageX = clientX - rect.left;
-            const imageY = clientY - rect.top;
-            
-            const newScale = Math.max(minScale, Math.min(maxScale, scale));
-            const scaleChange = newScale / currentScale;
-            
-            modalImage.style.transform = `scale(${newScale})`;
+        function applyZoom(newScale) {
+            const previousScale = currentScale;
             currentScale = newScale;
+            
+            modalImage.style.transform = `scale(${currentScale})`;
             
             if (currentScale > 1) {
                 modalImage.classList.remove('zoomable');
                 modalImage.classList.add('zoomed');
                 modalImageContainer.style.cursor = 'grab';
                 
-                const scrollX = (imageX * scaleChange) - imageX;
-                const scrollY = (imageY * scaleChange) - imageY;
+                // Calculate center position for smooth zoom
+                const containerRect = modalImageContainer.getBoundingClientRect();
+                const imageRect = modalImage.getBoundingClientRect();
                 
-                modalImageContainer.scrollLeft += scrollX;
-                modalImageContainer.scrollTop += scrollY;
+                const centerX = (containerRect.width / 2 - modalImageContainer.scrollLeft) * (newScale / previousScale);
+                const centerY = (containerRect.height / 2 - modalImageContainer.scrollTop) * (newScale / previousScale);
+                
+                modalImageContainer.scrollLeft = centerX - containerRect.width / 2;
+                modalImageContainer.scrollTop = centerY - containerRect.height / 2;
             } else {
                 modalImage.classList.add('zoomable');
                 modalImage.classList.remove('zoomed');
                 modalImageContainer.style.cursor = 'zoom-in';
-                modalImageContainer.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
             }
         }
 
@@ -1573,11 +1561,7 @@
                 if (initialDistance) {
                     const scaleChange = currentDistance / initialDistance;
                     const newScale = Math.max(minScale, Math.min(maxScale, initialScale * scaleChange));
-                    
-                    const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-                    const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
-                    
-                    zoomToPoint(newScale, midX, midY);
+                    applyZoom(newScale);
                 }
             } else if (e.touches.length === 1 && currentScale > 1) {
                 e.preventDefault();
