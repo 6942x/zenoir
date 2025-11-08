@@ -1050,6 +1050,22 @@
             transform: scale(0.95);
         }
 
+        @media (max-width: 1024px) {
+            .home-content h1 {
+                font-size: 3rem;
+            }
+            
+            .profile-image {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .about-avatar {
+                width: 300px;
+                height: 300px;
+            }
+        }
+
         @media (max-width: 768px) {
             .menu-toggle {
                 display: flex;
@@ -1082,8 +1098,8 @@
             }
 
             .profile-image {
-                width: 250px;
-                height: 250px;
+                width: 200px;
+                height: 200px;
                 right: 5%;
             }
 
@@ -1120,7 +1136,7 @@
             }
 
             .projects-container {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             }
 
             .pricing-container {
@@ -1206,6 +1222,14 @@
                 width: 40px;
                 height: 40px;
                 font-size: 1.2rem;
+            }
+            
+            .projects-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-card {
+                padding: 2rem;
             }
         }
     </style>
@@ -1499,13 +1523,14 @@
             if (currentScale > 1) {
                 modalImage.classList.remove('zoomable');
                 modalImage.classList.add('zoomed');
+                modalImageContainer.style.cursor = 'grab';
             } else {
                 modalImage.classList.add('zoomable');
                 modalImage.classList.remove('zoomed');
+                modalImageContainer.style.cursor = 'zoom-in';
             }
         }
 
-        // Mouse wheel zoom
         modalImageContainer.addEventListener('wheel', (e) => {
             e.preventDefault();
             if (e.deltaY < 0) {
@@ -1515,9 +1540,8 @@
             }
         });
 
-        // Drag to pan when zoomed
-        modalImage.addEventListener('mousedown', (e) => {
-            if (currentScale > 1) {
+        modalImageContainer.addEventListener('mousedown', (e) => {
+            if (currentScale > 1 && e.target === modalImage) {
                 isDragging = true;
                 startX = e.pageX - modalImageContainer.offsetLeft;
                 startY = e.pageY - modalImageContainer.offsetTop;
@@ -1540,9 +1564,24 @@
             isDragging = false;
             if (currentScale > 1) {
                 modalImage.style.cursor = 'grab';
-            } else {
-                modalImage.style.cursor = 'zoom-in';
-            }
+            modalImageContainer.style.cursor = 'grab';
+            modalImageContainer.style.overflow = 'auto';
+            modalImageContainer.style.overscrollBehavior = 'contain';
+            modalImageContainer.style.scrollBehavior = 'smooth';
+            modalImageContainer.style.touchAction = 'pan-x pan-y';
+            modalImageContainer.style.webkitOverflowScrolling = 'touch';
+            modalImageContainer.style.pointerEvents = 'auto';
+            modalImageContainer.style.userSelect = 'none';
+            modalImageContainer.style.webkitUserSelect = 'none';
+            modalImageContainer.style.msUserSelect = 'none';
+            modalImageContainer.style.mozUserSelect = 'none';
+            modalImageContainer.style.webkitUserDrag = 'none';
+            modalImageContainer.style.userDrag = 'none';
+            modalImageContainer.style.webkitTapHighlightColor = 'transparent';
+        } else {
+            modalImage.style.cursor = 'zoom-in';
+            modalImageContainer.style.cursor = 'zoom-in';
+        }
         });
 
         modalImageContainer.addEventListener('mousemove', (e) => {
@@ -1556,7 +1595,6 @@
             modalImageContainer.scrollTop = scrollTop - walkY;
         });
 
-        // Touch support for mobile
         let touchStartX, touchStartY, touchStartScrollLeft, touchStartScrollTop;
 
         modalImageContainer.addEventListener('touchstart', (e) => {
@@ -1580,7 +1618,6 @@
             }
         });
 
-        // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
             if (modalOverlay.classList.contains('active')) {
                 if (e.key === 'Escape') closeModal();
