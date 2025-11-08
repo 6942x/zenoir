@@ -61,7 +61,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.5rem 5%;
+            padding: 1rem 5%;
             background: rgba(26, 10, 46, 0.95);
             backdrop-filter: blur(10px);
             z-index: 1000;
@@ -148,6 +148,7 @@
             display: none;
             flex-direction: column;
             cursor: pointer;
+            z-index: 1001;
         }
 
         .menu-toggle span {
@@ -168,7 +169,7 @@
             margin-top: 80px;
             flex-direction: column;
             justify-content: center;
-            gap: 3rem;
+            gap: 2rem;
         }
 
         .home-img {
@@ -203,12 +204,9 @@
         }
 
         .profile-image {
-            position: absolute;
-            top: 50%;
-            right: 10%;
-            transform: translateY(-50%);
-            width: 300px;
-            height: 300px;
+            position: relative;
+            width: 250px;
+            height: 250px;
             border-radius: 50%;
             overflow: hidden;
             border: 4px solid #D800FF;
@@ -217,10 +215,11 @@
             z-index: 10;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            margin: 0 auto;
         }
 
         .profile-image:hover {
-            transform: translateY(-50%) scale(1.08);
+            transform: scale(1.08);
             box-shadow: 0 0 60px rgba(216, 0, 255, 0.9);
             border-width: 5px;
         }
@@ -239,10 +238,10 @@
 
         @keyframes floatImage {
             0%, 100% {
-                transform: translateY(-50%) translateX(0);
+                transform: translateY(0);
             }
             50% {
-                transform: translateY(-55%) translateX(-10px);
+                transform: translateY(-10px);
             }
         }
 
@@ -251,6 +250,7 @@
             z-index: 10;
             animation: fadeInLeft 1s ease-out;
             text-align: center;
+            width: 100%;
         }
 
         @keyframes fadeInLeft {
@@ -265,7 +265,7 @@
         }
 
         .home-content h1 {
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
             line-height: 1.2;
             animation: slideInScale 1s ease-out;
@@ -335,24 +335,29 @@
 
         .home-buttons {
             display: flex;
-            gap: 1.5rem;
+            gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
             animation: fadeIn 2s ease-out;
+            width: 100%;
         }
 
         .nav-button {
-            padding: 1rem 2rem;
+            padding: 0.8rem 1.5rem;
             background: linear-gradient(135deg, #D800FF, #A000CC);
             color: #fff;
             border: none;
             border-radius: 10px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             box-shadow: 0 0 20px rgba(216, 0, 255, 0.5);
             text-decoration: none;
+            flex: 1;
+            min-width: 120px;
+            max-width: 160px;
+            text-align: center;
         }
 
         .nav-button:hover {
@@ -366,7 +371,7 @@
 
         section {
             min-height: 100vh;
-            padding: 100px 5%;
+            padding: 80px 5%;
             max-width: 1400px;
             margin: 0 auto;
             position: relative;
@@ -374,8 +379,8 @@
         }
 
         h2 {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
+            font-size: 2rem;
+            margin-bottom: 2rem;
             text-align: center;
             animation: fadeInUp 0.8s ease-out;
             position: relative;
@@ -413,31 +418,32 @@
 
         .about-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            grid-template-columns: 1fr;
+            gap: 2rem;
             align-items: center;
         }
 
         .about-card {
             background: rgba(26, 10, 46, 0.5);
             backdrop-filter: blur(20px);
-            padding: 3rem;
+            padding: 2rem;
             border-radius: 20px;
             border: 1px solid rgba(216, 0, 255, 0.3);
             animation: slideInLeft 0.8s ease-out;
             box-shadow: 0 8px 32px rgba(216, 0, 255, 0.1);
+            order: 2;
         }
 
         .about-card h3 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: #D800FF;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             font-weight: 700;
         }
 
         .about-card p {
             color: #aaa;
-            font-size: 1rem;
+            font-size: 0.95rem;
             line-height: 1.8;
             margin-bottom: 1rem;
         }
@@ -446,11 +452,12 @@
             display: flex;
             justify-content: center;
             animation: slideInRight 0.8s ease-out;
+            order: 1;
         }
 
         .about-avatar {
-            width: 350px;
-            height: 350px;
+            width: 250px;
+            height: 250px;
             border-radius: 50%;
             border: 4px solid #D800FF;
             overflow: hidden;
@@ -477,109 +484,10 @@
             }
         }
 
-        .services-container,
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-box,
-        .skill-box {
-            background: rgba(26, 10, 46, 0.6);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(216, 0, 255, 0.2);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            opacity: 0;
-            transform: translateY(30px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-box::before,
-        .skill-box::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(216, 0, 255, 0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-
-        .service-box:hover::before,
-        .skill-box:hover::before {
-            opacity: 1;
-            animation: rotate 4s linear infinite;
-        }
-
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .service-box:hover,
-        .skill-box:hover {
-            background: rgba(216, 0, 255, 0.15);
-            border-color: #D800FF;
-            transform: translateY(-15px);
-            box-shadow: 0 15px 40px rgba(216, 0, 255, 0.5);
-        }
-
-        .service-box h3,
-        .skill-box h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #D800FF;
-            transition: transform 0.3s;
-            font-weight: 700;
-        }
-
-        .service-box:hover h3,
-        .skill-box:hover h3 {
-            transform: scale(1.05);
-        }
-
-        .service-box p,
-        .skill-box p {
-            color: #aaa;
-            line-height: 1.8;
-            font-size: 0.95rem;
-        }
-
-        .skill-bar {
-            background: rgba(255, 255, 255, 0.1);
-            height: 10px;
-            border-radius: 5px;
-            margin-top: 1rem;
-            overflow: hidden;
-        }
-
-        .skill-progress {
-            height: 100%;
-            background: linear-gradient(90deg, #D800FF, #A000CC);
-            border-radius: 5px;
-            animation: loadSkill 2s ease-out;
-            box-shadow: 0 0 10px rgba(216, 0, 255, 0.5);
-        }
-
-        @keyframes loadSkill {
-            from {
-                width: 0;
-            }
-        }
-
         .projects-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
         }
 
         .project-box {
@@ -593,7 +501,7 @@
             position: relative;
             display: flex;
             flex-direction: column;
-            height: 300px;
+            height: 250px;
         }
 
         .project-box::after {
@@ -615,7 +523,7 @@
         .project-box:hover {
             background: rgba(216, 0, 255, 0.15);
             border-color: #D800FF;
-            transform: translateY(-15px) rotate(1deg);
+            transform: translateY(-10px) rotate(1deg);
             box-shadow: 0 15px 40px rgba(216, 0, 255, 0.5);
         }
 
@@ -645,14 +553,14 @@
 
         .pricing-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
         }
 
         .pricing-card {
             background: rgba(26, 10, 46, 0.6);
             backdrop-filter: blur(20px);
-            padding: 2.5rem;
+            padding: 2rem;
             border-radius: 20px;
             border: 1px solid rgba(216, 0, 255, 0.2);
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -660,7 +568,7 @@
             transform: translateY(30px);
             position: relative;
             overflow: hidden;
-            min-height: 400px;
+            min-height: 350px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -686,24 +594,24 @@
         .pricing-card:hover {
             border-color: #D800FF;
             box-shadow: 0 0 30px rgba(216, 0, 255, 0.6), inset 0 0 30px rgba(216, 0, 255, 0.1);
-            transform: translateY(-15px);
+            transform: translateY(-10px);
         }
 
         .pricing-header {
             position: relative;
             z-index: 1;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .pricing-title {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: #D800FF;
             margin-bottom: 1rem;
             font-weight: 700;
         }
 
         .pricing-price {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 800;
             background: linear-gradient(135deg, #D800FF, #A000CC);
             -webkit-background-clip: text;
@@ -713,7 +621,7 @@
         }
 
         .pricing-currency {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #aaa;
             font-weight: 400;
         }
@@ -722,18 +630,18 @@
             position: relative;
             z-index: 1;
             list-style: none;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             flex-grow: 1;
         }
 
         .pricing-features li {
-            padding: 0.8rem 0;
+            padding: 0.6rem 0;
             color: #aaa;
             border-bottom: 1px solid rgba(216, 0, 255, 0.1);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0.6rem;
         }
 
         .pricing-features li:last-child {
@@ -764,7 +672,7 @@
         .contact-container {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 4rem;
+            gap: 2rem;
             align-items: center;
             justify-items: center;
         }
@@ -773,27 +681,28 @@
             animation: fadeInLeft 0.8s ease-out;
             text-align: center;
             max-width: 600px;
+            width: 100%;
         }
 
         .contact-content h3 {
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: #D800FF;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             font-weight: 700;
         }
 
         .contact-content p {
             color: #aaa;
-            font-size: 1rem;
+            font-size: 0.95rem;
             line-height: 1.8;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .discord-button {
             display: inline-block;
             background: linear-gradient(135deg, #5865F2, #7289DA);
             color: #fff;
-            padding: 1.2rem 2.5rem;
+            padding: 1rem 2rem;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 700;
@@ -801,8 +710,8 @@
             box-shadow: 0 0 20px rgba(88, 101, 242, 0.5);
             border: none;
             cursor: pointer;
-            font-size: 1rem;
-            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
         }
 
         .discord-button:hover {
@@ -818,8 +727,8 @@
         }
 
         .social-icon {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 10px;
             background: rgba(216, 0, 255, 0.2);
             border: 1px solid rgba(216, 0, 255, 0.3);
@@ -828,7 +737,7 @@
             justify-content: center;
             color: #D800FF;
             text-decoration: none;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             transition: all 0.3s;
         }
 
@@ -840,15 +749,15 @@
 
         footer {
             text-align: center;
-            padding: 3rem 2rem;
+            padding: 2rem 1rem;
             background: rgba(26, 10, 46, 0.8);
             border-top: 1px solid rgba(216, 0, 255, 0.2);
-            margin-top: 5rem;
+            margin-top: 3rem;
         }
 
         footer p {
             color: #aaa;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         footer p:first-child {
@@ -867,6 +776,7 @@
             opacity: 0;
             animation: fadeIn 0.3s ease-out forwards;
             overflow: hidden;
+            touch-action: none;
         }
 
         .modal-overlay.active {
@@ -883,6 +793,7 @@
             align-items: center;
             justify-content: center;
             animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            touch-action: none;
         }
 
         .modal-content.closing {
@@ -898,12 +809,13 @@
             height: 100%;
             cursor: pointer;
             overflow: auto;
-            padding: 40px;
+            padding: 20px;
+            touch-action: none;
         }
 
         .modal-image {
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 95%;
+            max-height: 95%;
             border-radius: 10px;
             object-fit: contain;
             z-index: 1;
@@ -911,7 +823,10 @@
             transition: transform 0.3s ease;
             border: 3px solid #D800FF;
             cursor: default;
-            transform-origin: center center;
+            transform-origin: 0 0;
+            touch-action: none;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .modal-image.zoomable {
@@ -924,17 +839,6 @@
 
         .modal-image.zoomed:active {
             cursor: grabbing;
-        }
-
-        @keyframes expandImage {
-            0% {
-                transform: scale(0.5);
-                opacity: 0;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
         }
 
         @keyframes scaleIn {
@@ -970,10 +874,10 @@
 
         .close-button {
             position: fixed;
-            top: 40px;
-            right: 40px;
-            width: 50px;
-            height: 50px;
+            top: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
             background: linear-gradient(135deg, #D800FF, #A000CC);
             border: none;
             border-radius: 50%;
@@ -981,7 +885,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: #fff;
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             z-index: 2002;
@@ -995,7 +899,7 @@
                 transform: translateY(0);
             }
             50% {
-                transform: translateY(-10px);
+                transform: translateY(-5px);
             }
         }
 
@@ -1011,27 +915,27 @@
 
         .zoom-controls {
             position: fixed;
-            bottom: 40px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 1rem;
+            gap: 0.8rem;
             z-index: 2001;
             background: rgba(26, 10, 46, 0.8);
-            padding: 1rem;
+            padding: 0.8rem;
             border-radius: 50px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(216, 0, 255, 0.3);
         }
 
         .zoom-button {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             background: linear-gradient(135deg, #D800FF, #A000CC);
             border: none;
             border-radius: 50%;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: bold;
             cursor: pointer;
             display: flex;
@@ -1050,23 +954,144 @@
             transform: scale(0.95);
         }
 
-        @media (max-width: 1024px) {
+        @media (min-width: 768px) {
+            header {
+                padding: 1.5rem 5%;
+            }
+            
+            .home {
+                margin-top: 80px;
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+            
+            .home-content {
+                text-align: left;
+                max-width: 50%;
+            }
+            
             .home-content h1 {
                 font-size: 3rem;
             }
             
             .profile-image {
-                width: 250px;
-                height: 250px;
+                position: absolute;
+                top: 50%;
+                right: 10%;
+                transform: translateY(-50%);
+                width: 300px;
+                height: 300px;
+                margin: 0;
+            }
+            
+            .home-buttons {
+                justify-content: flex-start;
+            }
+            
+            .nav-button {
+                flex: none;
+            }
+            
+            section {
+                padding: 100px 5%;
+            }
+            
+            h2 {
+                font-size: 2.5rem;
+                margin-bottom: 3rem;
+            }
+            
+            .about-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
+            
+            .about-card {
+                order: 1;
+                padding: 3rem;
+            }
+            
+            .about-image {
+                order: 2;
             }
             
             .about-avatar {
-                width: 300px;
+                width: 350px;
+                height: 350px;
+            }
+            
+            .projects-container {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+            }
+            
+            .project-box {
                 height: 300px;
+            }
+            
+            .pricing-container {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                gap: 2rem;
+            }
+            
+            .pricing-card {
+                padding: 2.5rem;
+                min-height: 400px;
+            }
+            
+            .pricing-title {
+                font-size: 1.8rem;
+            }
+            
+            .pricing-price {
+                font-size: 2.5rem;
+            }
+            
+            .contact-content h3 {
+                font-size: 2rem;
+            }
+            
+            .contact-content p {
+                font-size: 1rem;
+            }
+            
+            .discord-button {
+                padding: 1.2rem 2.5rem;
+                font-size: 1rem;
+            }
+            
+            .social-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+            
+            .modal-image-container {
+                padding: 40px;
+            }
+            
+            .close-button {
+                top: 40px;
+                right: 40px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.8rem;
+            }
+            
+            .zoom-controls {
+                bottom: 40px;
+                padding: 1rem;
+            }
+            
+            .zoom-button {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
             .menu-toggle {
                 display: flex;
             }
@@ -1074,105 +1099,34 @@
             nav ul {
                 position: fixed;
                 left: -100%;
-                top: 70px;
+                top: 0;
                 flex-direction: column;
                 background: rgba(26, 10, 46, 0.98);
                 width: 100%;
+                height: 100vh;
                 text-align: center;
                 transition: 0.3s;
-                padding: 2rem 0;
+                padding: 5rem 0;
                 border-bottom: 1px solid rgba(216, 0, 255, 0.2);
+                z-index: 999;
             }
 
             nav ul.active {
                 left: 0;
             }
 
-            .home {
-                margin-top: 70px;
-            }
-
-            .home-img {
-                width: 100%;
-                opacity: 0.3;
-            }
-
-            .profile-image {
-                width: 200px;
-                height: 200px;
-                right: 5%;
-            }
-
-            .home-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .home-content p {
-                font-size: 0.95rem;
-            }
-
-            section {
-                padding: 80px 5%;
-                min-height: auto;
-            }
-
-            h2 {
-                font-size: 2rem;
-            }
-
-            .about-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .about-avatar {
-                width: 250px;
-                height: 250px;
-            }
-
-            .contact-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .projects-container {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            }
-
-            .pricing-container {
-                grid-template-columns: 1fr;
-            }
-
-            .close-button {
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
-                top: 20px;
-                right: 20px;
-            }
-
-            .modal-image {
-                max-height: 85vh;
-            }
-
-            .zoom-controls {
-                bottom: 20px;
-                padding: 0.8rem;
-            }
-
-            .zoom-button {
-                width: 45px;
-                height: 45px;
-                font-size: 1.3rem;
-            }
-
-            nav ul {
-                gap: 0;
+            nav ul li {
+                margin: 1rem 0;
             }
 
             nav a {
                 display: block;
                 padding: 1rem 0;
+                font-size: 1.2rem;
+            }
+            
+            .home-img {
+                display: none;
             }
         }
 
@@ -1180,56 +1134,114 @@
             .home-content h1 {
                 font-size: 2rem;
             }
-
-            .home-content p {
+            
+            .status-badge {
+                font-size: 0.8rem;
+                padding: 0.4rem 1rem;
+            }
+            
+            .nav-button {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.85rem;
+                min-width: 100px;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .about-card {
+                padding: 1.5rem;
+            }
+            
+            .about-card h3 {
+                font-size: 1.3rem;
+            }
+            
+            .about-card p {
                 font-size: 0.9rem;
             }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            .pricing-card {
-                min-height: auto;
-            }
-
-            .social-links {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .social-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-
-            .home-buttons {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .nav-button {
-                width: 100%;
-            }
-
-            .zoom-controls {
-                bottom: 15px;
-                padding: 0.6rem;
-            }
-
-            .zoom-button {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
+            
+            .about-avatar {
+                width: 200px;
+                height: 200px;
             }
             
             .projects-container {
                 grid-template-columns: 1fr;
             }
             
-            .about-card {
-                padding: 2rem;
+            .project-box {
+                height: 200px;
+            }
+            
+            .pricing-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-card {
+                padding: 1.5rem;
+                min-height: 300px;
+            }
+            
+            .pricing-title {
+                font-size: 1.3rem;
+            }
+            
+            .pricing-price {
+                font-size: 1.8rem;
+            }
+            
+            .pricing-features li {
+                font-size: 0.85rem;
+                padding: 0.5rem 0;
+            }
+            
+            .contact-content h3 {
+                font-size: 1.3rem;
+            }
+            
+            .contact-content p {
+                font-size: 0.9rem;
+            }
+            
+            .discord-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .social-links {
+                gap: 0.8rem;
+            }
+            
+            .social-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .modal-image-container {
+                padding: 10px;
+            }
+            
+            .close-button {
+                top: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.3rem;
+            }
+            
+            .zoom-controls {
+                bottom: 15px;
+                padding: 0.6rem;
+            }
+            
+            .zoom-button {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -1327,42 +1339,6 @@
                     <img src="https://i.postimg.cc/TYmHHjjm/qq.png" alt="Project" class="project-img" onclick="openModal(this)">
                 </div>
             </div>
-
-            <div class="project-box">
-                <div class="project-media">
-                    <img src="https://i.postimg.cc/TYmHHjjm/qq.png" alt="Project" class="project-img" onclick="openModal(this)">
-                </div>
-            </div>
-
-            <div class="project-box">
-                <div class="project-media">
-                    <img src="https://i.postimg.cc/TYmHHjjm/qq.png" alt="Project" class="project-img" onclick="openModal(this)">
-                </div>
-            </div>
-
-            <div class="project-box">
-                <div class="project-media">
-                    <img src="https://i.postimg.cc/TYmHHjjm/qq.png" alt="Project" class="project-img" onclick="openModal(this)">
-                </div>
-            </div>
-
-            <div class="project-box">
-                <div class="project-media">
-                    <img src="https://i.postimg.cc/TYmHHjjm/qq.png" alt="Project" class="project-img" onclick="openModal(this)">
-                </div>
-            </div>
-
-            <div class="project-box">
-                <div class="project-media">
-                    <img src="https://i.postimg.cc/TYmHHjjm/qq.png" alt="Project" class="project-img" onclick="openModal(this)">
-                </div>
-            </div>
-
-            <div class="project-box">
-                <div class="project-media">
-                    <img src="https://i.postimg.cc/TYmHHjjm/qq.png" alt="Project" class="project-img" onclick="openModal(this)">
-                </div>
-            </div>
         </div>
     </section>
 
@@ -1419,6 +1395,12 @@
                 <h3>Let's Create Something Amazing</h3>
                 <p>I'm always excited to work on new projects and collaborate with talented individuals. Whether you have a specific project in mind or just want to chat about design, reach out to me on Discord.</p>
                 <a href="https://discord.com/users/1186388052877254656" target="_blank" class="discord-button">💬 Contact me on Discord</a>
+                <div class="social-links">
+                    <a href="#" class="social-icon">📷</a>
+                    <a href="#" class="social-icon">🐦</a>
+                    <a href="#" class="social-icon">💼</a>
+                    <a href="#" class="social-icon">📧</a>
+                </div>
             </div>
         </div>
     </section>
@@ -1431,7 +1413,7 @@
                 <button class="zoom-button" onclick="zoomOut()">-</button>
                 <button class="zoom-button" onclick="resetZoom()">⟲</button>
             </div>
-            <div class="modal-image-container" id="modalImageContainer" onclick="handleImageClick(event)">
+            <div class="modal-image-container" id="modalImageContainer">
                 <img id="modalImage" class="modal-image" src="" alt="">
             </div>
         </div>
@@ -1461,6 +1443,7 @@
         const scaleStep = 0.2;
         let isDragging = false;
         let startX, startY, scrollLeft, scrollTop;
+        let lastZoomPoint = { x: 0, y: 0 };
 
         function openModal(imgElement) {
             modalImage.src = imgElement.src;
@@ -1487,56 +1470,69 @@
             }
         }
 
-        function handleImageClick(event) {
-            if (event.target === modalImageContainer && currentScale === 1) {
-                closeModal();
-            }
-        }
-
-        function zoomIn() {
-            if (currentScale < maxScale) {
-                currentScale += scaleStep;
-                updateImageScale();
-            }
-        }
-
-        function zoomOut() {
-            if (currentScale > minScale) {
-                currentScale -= scaleStep;
-                updateImageScale();
-            }
-        }
-
-        function resetZoom() {
-            currentScale = 1;
-            updateImageScale();
-            modalImageContainer.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: 'smooth'
-            });
-        }
-
-        function updateImageScale() {
-            modalImage.style.transform = `scale(${currentScale})`;
+        function zoomToPoint(scale, clientX, clientY) {
+            const rect = modalImage.getBoundingClientRect();
+            const containerRect = modalImageContainer.getBoundingClientRect();
+            
+            const imageX = clientX - rect.left;
+            const imageY = clientY - rect.top;
+            
+            const currentX = (imageX / rect.width) * modalImage.naturalWidth;
+            const currentY = (imageY / rect.height) * modalImage.naturalHeight;
+            
+            const newScale = Math.max(minScale, Math.min(maxScale, scale));
+            const scaleChange = newScale / currentScale;
+            
+            modalImage.style.transform = `scale(${newScale})`;
+            currentScale = newScale;
             
             if (currentScale > 1) {
                 modalImage.classList.remove('zoomable');
                 modalImage.classList.add('zoomed');
                 modalImageContainer.style.cursor = 'grab';
+                
+                const scrollX = (imageX * scaleChange) - imageX;
+                const scrollY = (imageY * scaleChange) - imageY;
+                
+                modalImageContainer.scrollLeft += scrollX;
+                modalImageContainer.scrollTop += scrollY;
             } else {
                 modalImage.classList.add('zoomable');
                 modalImage.classList.remove('zoomed');
                 modalImageContainer.style.cursor = 'zoom-in';
+                modalImageContainer.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
             }
+        }
+
+        function zoomIn() {
+            const rect = modalImageContainer.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            zoomToPoint(currentScale + scaleStep, centerX, centerY);
+        }
+
+        function zoomOut() {
+            const rect = modalImageContainer.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            zoomToPoint(currentScale - scaleStep, centerX, centerY);
+        }
+
+        function resetZoom() {
+            currentScale = 1;
+            modalImage.style.transform = `scale(${currentScale})`;
+            modalImage.classList.add('zoomable');
+            modalImage.classList.remove('zoomed');
+            modalImageContainer.style.cursor = 'zoom-in';
+            modalImageContainer.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         }
 
         modalImageContainer.addEventListener('wheel', (e) => {
             e.preventDefault();
             if (e.deltaY < 0) {
-                zoomIn();
+                zoomToPoint(currentScale + scaleStep, e.clientX, e.clientY);
             } else {
-                zoomOut();
+                zoomToPoint(currentScale - scaleStep, e.clientX, e.clientY);
             }
         });
 
@@ -1548,6 +1544,7 @@
                 scrollLeft = modalImageContainer.scrollLeft;
                 scrollTop = modalImageContainer.scrollTop;
                 modalImage.style.cursor = 'grabbing';
+                modalImageContainer.style.cursor = 'grabbing';
             }
         });
 
@@ -1555,8 +1552,10 @@
             isDragging = false;
             if (currentScale > 1) {
                 modalImage.style.cursor = 'grab';
+                modalImageContainer.style.cursor = 'grab';
             } else {
                 modalImage.style.cursor = 'zoom-in';
+                modalImageContainer.style.cursor = 'zoom-in';
             }
         });
 
@@ -1564,24 +1563,11 @@
             isDragging = false;
             if (currentScale > 1) {
                 modalImage.style.cursor = 'grab';
-            modalImageContainer.style.cursor = 'grab';
-            modalImageContainer.style.overflow = 'auto';
-            modalImageContainer.style.overscrollBehavior = 'contain';
-            modalImageContainer.style.scrollBehavior = 'smooth';
-            modalImageContainer.style.touchAction = 'pan-x pan-y';
-            modalImageContainer.style.webkitOverflowScrolling = 'touch';
-            modalImageContainer.style.pointerEvents = 'auto';
-            modalImageContainer.style.userSelect = 'none';
-            modalImageContainer.style.webkitUserSelect = 'none';
-            modalImageContainer.style.msUserSelect = 'none';
-            modalImageContainer.style.mozUserSelect = 'none';
-            modalImageContainer.style.webkitUserDrag = 'none';
-            modalImageContainer.style.userDrag = 'none';
-            modalImageContainer.style.webkitTapHighlightColor = 'transparent';
-        } else {
-            modalImage.style.cursor = 'zoom-in';
-            modalImageContainer.style.cursor = 'zoom-in';
-        }
+                modalImageContainer.style.cursor = 'grab';
+            } else {
+                modalImage.style.cursor = 'zoom-in';
+                modalImageContainer.style.cursor = 'zoom-in';
+            }
         });
 
         modalImageContainer.addEventListener('mousemove', (e) => {
@@ -1595,27 +1581,56 @@
             modalImageContainer.scrollTop = scrollTop - walkY;
         });
 
-        let touchStartX, touchStartY, touchStartScrollLeft, touchStartScrollTop;
+        let initialDistance = null;
 
         modalImageContainer.addEventListener('touchstart', (e) => {
-            if (currentScale > 1) {
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                initialDistance = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+            } else if (e.touches.length === 1 && currentScale > 1) {
                 const touch = e.touches[0];
-                touchStartX = touch.pageX;
-                touchStartY = touch.pageY;
-                touchStartScrollLeft = modalImageContainer.scrollLeft;
-                touchStartScrollTop = modalImageContainer.scrollTop;
+                startX = touch.pageX - modalImageContainer.offsetLeft;
+                startY = touch.pageY - modalImageContainer.offsetTop;
+                scrollLeft = modalImageContainer.scrollLeft;
+                scrollTop = modalImageContainer.scrollTop;
             }
         });
 
         modalImageContainer.addEventListener('touchmove', (e) => {
-            if (currentScale > 1) {
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                const currentDistance = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+                
+                if (initialDistance) {
+                    const scaleChange = currentDistance / initialDistance;
+                    const newScale = Math.max(minScale, Math.min(maxScale, currentScale * scaleChange));
+                    
+                    const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+                    const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+                    
+                    zoomToPoint(newScale, midX, midY);
+                    initialDistance = currentDistance;
+                }
+            } else if (e.touches.length === 1 && currentScale > 1) {
                 e.preventDefault();
                 const touch = e.touches[0];
-                const walkX = (touch.pageX - touchStartX) * 2;
-                const walkY = (touch.pageY - touchStartY) * 2;
-                modalImageContainer.scrollLeft = touchStartScrollLeft - walkX;
-                modalImageContainer.scrollTop = touchStartScrollTop - walkY;
+                const x = touch.pageX - modalImageContainer.offsetLeft;
+                const y = touch.pageY - modalImageContainer.offsetTop;
+                const walkX = (x - startX) * 2;
+                const walkY = (y - startY) * 2;
+                modalImageContainer.scrollLeft = scrollLeft - walkX;
+                modalImageContainer.scrollTop = scrollTop - walkY;
             }
+        });
+
+        modalImageContainer.addEventListener('touchend', () => {
+            initialDistance = null;
         });
 
         document.addEventListener('keydown', (e) => {
@@ -1657,7 +1672,7 @@
             let current = '';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (window.scrollY >= sectionTop - 200) {
+                if (window.scrollY >= sectionTop - 100) {
                     current = section.getAttribute('id');
                 }
             });
@@ -1671,7 +1686,7 @@
         });
 
         const observerOptions = {
-            threshold: 0.2
+            threshold: 0.1
         };
 
         const revealOnScroll = (entries, observer) => {
@@ -1688,7 +1703,7 @@
 
         const observer = new IntersectionObserver(revealOnScroll, observerOptions);
 
-        document.querySelectorAll('.service-box, .skill-box, .project-box, .pricing-card').forEach(el => {
+        document.querySelectorAll('.project-box, .pricing-card').forEach(el => {
             observer.observe(el);
         });
 
