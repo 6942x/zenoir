@@ -577,11 +577,10 @@
         }
 
         .projects-container {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
-
 
         .project-box {
             background: rgba(26, 10, 46, 0.6);
@@ -594,6 +593,7 @@
             position: relative;
             display: flex;
             flex-direction: column;
+            height: 300px;
         }
 
         .project-box::after {
@@ -621,7 +621,7 @@
 
         .project-media {
             width: 100%;
-            height: 250px;
+            height: 100%;
             background: #000;
             position: relative;
             display: flex;
@@ -866,8 +866,7 @@
             z-index: 2000;
             opacity: 0;
             animation: fadeIn 0.3s ease-out forwards;
-            overflow: auto;
-            padding: 20px;
+            overflow: hidden;
         }
 
         .modal-overlay.active {
@@ -890,27 +889,41 @@
             animation: scaleOut 0.3s ease-out forwards;
         }
 
-        .modal-image-wrapper {
+        .modal-image-container {
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             width: 100%;
             height: 100%;
+            cursor: pointer;
+            overflow: auto;
+            padding: 40px;
         }
 
         .modal-image {
-            max-width: 70vw;
-            max-height: 70vh;
-            width: 70vw;
-            height: 70vh;
+            max-width: 90%;
+            max-height: 90%;
             border-radius: 10px;
             object-fit: contain;
             z-index: 1;
             box-shadow: 0 0 80px rgba(216, 0, 255, 0.7);
+            transition: transform 0.3s ease;
+            border: 3px solid #D800FF;
+            cursor: default;
+            transform-origin: center center;
+        }
+
+        .modal-image.zoomable {
+            cursor: zoom-in;
+        }
+
+        .modal-image.zoomed {
             cursor: grab;
-            transition: transform 0.2s ease-out;
-            animation: expandImage 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .modal-image.zoomed:active {
+            cursor: grabbing;
         }
 
         @keyframes expandImage {
@@ -922,10 +935,6 @@
                 transform: scale(1);
                 opacity: 1;
             }
-        }
-
-        .modal-image:active {
-            cursor: grabbing;
         }
 
         @keyframes scaleIn {
@@ -998,6 +1007,47 @@
 
         .close-button:active {
             transform: rotate(90deg) scale(1.05);
+        }
+
+        .zoom-controls {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 2001;
+            background: rgba(26, 10, 46, 0.8);
+            padding: 1rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(216, 0, 255, 0.3);
+        }
+
+        .zoom-button {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #D800FF, #A000CC);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(216, 0, 255, 0.5);
+        }
+
+        .zoom-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(216, 0, 255, 0.8);
+        }
+
+        .zoom-button:active {
+            transform: scale(0.95);
         }
 
         @media (max-width: 768px) {
@@ -1077,10 +1127,6 @@
                 grid-template-columns: 1fr;
             }
 
-            .modal-overlay {
-                padding: 10px;
-            }
-
             .close-button {
                 width: 50px;
                 height: 50px;
@@ -1093,8 +1139,15 @@
                 max-height: 85vh;
             }
 
-            .modal-content {
-                padding: 60px 10px;
+            .zoom-controls {
+                bottom: 20px;
+                padding: 0.8rem;
+            }
+
+            .zoom-button {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
             }
 
             nav ul {
@@ -1142,6 +1195,17 @@
 
             .nav-button {
                 width: 100%;
+            }
+
+            .zoom-controls {
+                bottom: 15px;
+                padding: 0.6rem;
+            }
+
+            .zoom-button {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -1206,73 +1270,73 @@
         <div class="projects-container">
             <div class="project-box">
                 <div class="project-media">
-                    <img src="https://drive.google.com/thumbnail?id=1nRx2emAvxIyQA2XqcTK74kIj_FV5cvkK&sz=w1000" alt="Project" class="project-img" onclick="openModal(this)">
+                    <img src="https://i.postimg.cc/TYmHHjjm/qq.png" alt="Project" class="project-img" onclick="openModal(this)">
                 </div>
             </div>
 
             <div class="project-box">
                 <div class="project-media">
-                    <img src="https://drive.google.com/thumbnail?id=1nRx2emAvxIyQA2XqcTK74kIj_FV5cvkK&sz=w1000" alt="Project" class="project-img" onclick="openModal(this)">
+                    <img src="https://i.postimg.cc/TYmHHjjm/qq.png" alt="Project" class="project-img" onclick="openModal(this)">
                 </div>
             </div>
 
             <div class="project-box">
                 <div class="project-media">
-                    <img src="https://drive.google.com/thumbnail?id=1nRx2emAvxIyQA2XqcTK74kIj_FV5cvkK&sz=w1000" alt="Project" class="project-img" onclick="openModal(this)">
+                    <img src="https://i.postimg.cc/TYmHHjjm/qq.png" alt="Project" class="project-img" onclick="openModal(this)">
                 </div>
             </div>
 
             <div class="project-box">
                 <div class="project-media">
-                    <img src="https://drive.google.com/thumbnail?id=1nRx2emAvxIyQA2XqcTK74kIj_FV5cvkK&sz=w1000" alt="Project" class="project-img" onclick="openModal(this)">
+                    <img src="https://i.postimg.cc/TYmHHjjm/qq.png" alt="Project" class="project-img" onclick="openModal(this)">
                 </div>
             </div>
 
             <div class="project-box">
                 <div class="project-media">
-                    <img src="https://drive.google.com/thumbnail?id=1nRx2emAvxIyQA2XqcTK74kIj_FV5cvkK&sz=w1000" alt="Project" class="project-img" onclick="openModal(this)">
+                    <img src="https://i.postimg.cc/TYmHHjjm/qq.png" alt="Project" class="project-img" onclick="openModal(this)">
                 </div>
             </div>
 
             <div class="project-box">
                 <div class="project-media">
-                    <img src="https://drive.google.com/thumbnail?id=1nRx2emAvxIyQA2XqcTK74kIj_FV5cvkK&sz=w1000" alt="Project" class="project-img" onclick="openModal(this)">
+                    <img src="https://i.postimg.cc/TYmHHjjm/qq.png" alt="Project" class="project-img" onclick="openModal(this)">
                 </div>
             </div>
 
             <div class="project-box">
                 <div class="project-media">
-                    <img src="https://drive.google.com/thumbnail?id=1nRx2emAvxIyQA2XqcTK74kIj_FV5cvkK&sz=w1000" alt="Project" class="project-img" onclick="openModal(this)">
+                    <img src="https://i.postimg.cc/TYmHHjjm/qq.png" alt="Project" class="project-img" onclick="openModal(this)">
                 </div>
             </div>
 
             <div class="project-box">
                 <div class="project-media">
-                    <img src="https://drive.google.com/thumbnail?id=1nRx2emAvxIyQA2XqcTK74kIj_FV5cvkK&sz=w1000" alt="Project" class="project-img" onclick="openModal(this)">
+                    <img src="https://i.postimg.cc/TYmHHjjm/qq.png" alt="Project" class="project-img" onclick="openModal(this)">
                 </div>
             </div>
 
             <div class="project-box">
                 <div class="project-media">
-                    <img src="https://drive.google.com/thumbnail?id=1nRx2emAvxIyQA2XqcTK74kIj_FV5cvkK&sz=w1000" alt="Project" class="project-img" onclick="openModal(this)">
+                    <img src="https://i.postimg.cc/TYmHHjjm/qq.png" alt="Project" class="project-img" onclick="openModal(this)">
                 </div>
             </div>
 
             <div class="project-box">
                 <div class="project-media">
-                    <img src="https://drive.google.com/thumbnail?id=1nRx2emAvxIyQA2XqcTK74kIj_FV5cvkK&sz=w1000" alt="Project" class="project-img" onclick="openModal(this)">
+                    <img src="https://i.postimg.cc/TYmHHjjm/qq.png" alt="Project" class="project-img" onclick="openModal(this)">
                 </div>
             </div>
 
             <div class="project-box">
                 <div class="project-media">
-                    <img src="https://drive.google.com/thumbnail?id=1nRx2emAvxIyQA2XqcTK74kIj_FV5cvkK&sz=w1000" alt="Project" class="project-img" onclick="openModal(this)">
+                    <img src="https://i.postimg.cc/TYmHHjjm/qq.png" alt="Project" class="project-img" onclick="openModal(this)">
                 </div>
             </div>
 
             <div class="project-box">
                 <div class="project-media">
-                    <img src="https://drive.google.com/thumbnail?id=1nRx2emAvxIyQA2XqcTK74kIj_FV5cvkK&sz=w1000" alt="Project" class="project-img" onclick="openModal(this)">
+                    <img src="https://i.postimg.cc/TYmHHjjm/qq.png" alt="Project" class="project-img" onclick="openModal(this)">
                 </div>
             </div>
         </div>
@@ -1338,7 +1402,12 @@
     <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
         <div class="modal-content" id="modalContent">
             <button class="close-button" onclick="closeModal()">✕</button>
-            <div class="modal-image-wrapper" id="modalImageWrapper">
+            <div class="zoom-controls">
+                <button class="zoom-button" onclick="zoomIn()">+</button>
+                <button class="zoom-button" onclick="zoomOut()">-</button>
+                <button class="zoom-button" onclick="resetZoom()">⟲</button>
+            </div>
+            <div class="modal-image-container" id="modalImageContainer" onclick="handleImageClick(event)">
                 <img id="modalImage" class="modal-image" src="" alt="">
             </div>
         </div>
@@ -1360,11 +1429,22 @@
         const modalOverlay = document.getElementById('modalOverlay');
         const modalContent = document.getElementById('modalContent');
         const modalImage = document.getElementById('modalImage');
+        const modalImageContainer = document.getElementById('modalImageContainer');
+
+        let currentScale = 1;
+        const minScale = 0.5;
+        const maxScale = 3;
+        const scaleStep = 0.2;
+        let isDragging = false;
+        let startX, startY, scrollLeft, scrollTop;
 
         function openModal(imgElement) {
             modalImage.src = imgElement.src;
             modalOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            resetZoom();
+            modalImage.classList.add('zoomable');
         }
 
         function closeModal() {
@@ -1373,6 +1453,7 @@
                 modalOverlay.classList.remove('active');
                 modalContent.classList.remove('closing');
                 document.body.style.overflow = 'auto';
+                resetZoom();
             }, 300);
         }
 
@@ -1381,6 +1462,133 @@
                 closeModal();
             }
         }
+
+        function handleImageClick(event) {
+            if (event.target === modalImageContainer && currentScale === 1) {
+                closeModal();
+            }
+        }
+
+        function zoomIn() {
+            if (currentScale < maxScale) {
+                currentScale += scaleStep;
+                updateImageScale();
+            }
+        }
+
+        function zoomOut() {
+            if (currentScale > minScale) {
+                currentScale -= scaleStep;
+                updateImageScale();
+            }
+        }
+
+        function resetZoom() {
+            currentScale = 1;
+            updateImageScale();
+            modalImageContainer.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        function updateImageScale() {
+            modalImage.style.transform = `scale(${currentScale})`;
+            
+            if (currentScale > 1) {
+                modalImage.classList.remove('zoomable');
+                modalImage.classList.add('zoomed');
+            } else {
+                modalImage.classList.add('zoomable');
+                modalImage.classList.remove('zoomed');
+            }
+        }
+
+        // Mouse wheel zoom
+        modalImageContainer.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            if (e.deltaY < 0) {
+                zoomIn();
+            } else {
+                zoomOut();
+            }
+        });
+
+        // Drag to pan when zoomed
+        modalImage.addEventListener('mousedown', (e) => {
+            if (currentScale > 1) {
+                isDragging = true;
+                startX = e.pageX - modalImageContainer.offsetLeft;
+                startY = e.pageY - modalImageContainer.offsetTop;
+                scrollLeft = modalImageContainer.scrollLeft;
+                scrollTop = modalImageContainer.scrollTop;
+                modalImage.style.cursor = 'grabbing';
+            }
+        });
+
+        modalImageContainer.addEventListener('mouseleave', () => {
+            isDragging = false;
+            if (currentScale > 1) {
+                modalImage.style.cursor = 'grab';
+            } else {
+                modalImage.style.cursor = 'zoom-in';
+            }
+        });
+
+        modalImageContainer.addEventListener('mouseup', () => {
+            isDragging = false;
+            if (currentScale > 1) {
+                modalImage.style.cursor = 'grab';
+            } else {
+                modalImage.style.cursor = 'zoom-in';
+            }
+        });
+
+        modalImageContainer.addEventListener('mousemove', (e) => {
+            if (!isDragging || currentScale <= 1) return;
+            e.preventDefault();
+            const x = e.pageX - modalImageContainer.offsetLeft;
+            const y = e.pageY - modalImageContainer.offsetTop;
+            const walkX = (x - startX) * 2;
+            const walkY = (y - startY) * 2;
+            modalImageContainer.scrollLeft = scrollLeft - walkX;
+            modalImageContainer.scrollTop = scrollTop - walkY;
+        });
+
+        // Touch support for mobile
+        let touchStartX, touchStartY, touchStartScrollLeft, touchStartScrollTop;
+
+        modalImageContainer.addEventListener('touchstart', (e) => {
+            if (currentScale > 1) {
+                const touch = e.touches[0];
+                touchStartX = touch.pageX;
+                touchStartY = touch.pageY;
+                touchStartScrollLeft = modalImageContainer.scrollLeft;
+                touchStartScrollTop = modalImageContainer.scrollTop;
+            }
+        });
+
+        modalImageContainer.addEventListener('touchmove', (e) => {
+            if (currentScale > 1) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const walkX = (touch.pageX - touchStartX) * 2;
+                const walkY = (touch.pageY - touchStartY) * 2;
+                modalImageContainer.scrollLeft = touchStartScrollLeft - walkX;
+                modalImageContainer.scrollTop = touchStartScrollTop - walkY;
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (modalOverlay.classList.contains('active')) {
+                if (e.key === 'Escape') closeModal();
+                if (e.key === '+' || e.key === '=') zoomIn();
+                if (e.key === '-') zoomOut();
+                if (e.key === '0') resetZoom();
+            }
+        });
 
         function toggleMenu() {
             document.getElementById('navMenu').classList.toggle('active');
